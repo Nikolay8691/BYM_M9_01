@@ -9,6 +9,13 @@ def index(request):
 		'campaigns' : Campaign.objects.all()
 		})
 
+def index2(request):
+#
+	return render(request, 'campaigns/index2.html', {
+		'campaigns' : Campaign.objects.all(),
+		'houses2' : House.objects.all(),
+		})
+
 def campaign(request, campaign_id):
 	campaign = Campaign.objects.get(pk=campaign_id)
 	return render(request, 'campaigns/campaign.html', {
