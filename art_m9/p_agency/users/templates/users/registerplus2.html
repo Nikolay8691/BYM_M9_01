@@ -1,0 +1,14 @@
+{% extends 'users/layout.html' %}
+
+{% block body %}
+    <h2>Register plus Profile</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{form}}
+    
+        <input type="submit" value="Register user">
+    </form>
+
+    <a href="{% url 'users:index2' %}">Back to users' list</a>
+{% endblock %}
