@@ -1,0 +1,15 @@
+{% extends 'campaigns/layout.html' %}
+
+{% block body %}
+	<h1> Campaign {{campaign.id}} : </h1>
+	<ul>
+		<li>Title : {{campaign.title}}</li>
+		<li>Status : {{campaign.status}}</li>
+		<li>Supervisor = {{campaign.supervisor.nick}}</li>
+
+	</ul>
+
+
+
+	<a href = "{% url 'campaigns:index' %}"> Back to campaigns list </a>
+{% endblock %}
