@@ -1,0 +1,26 @@
+{% extends 'users/layout.html' %}
+
+{% block body %}
+	<h1>Welcome, {{user2.username}}</h1>
+
+	<h1> User2 (user_id : {{user2.id}}) : </h1>
+	<ul>
+
+		<li>first_name : {{user2.first_name}}</li>
+		<li>last_name : {{user2.last_name}}</li>
+		<li>email = {{user2.email}}</li>
+
+
+	</ul>
+
+	{% if message %}
+		<div> {{message}}</div>
+		<p></p>
+	{% endif %}
+
+
+
+	<a href = "{% url 'users:logout' %}"> Log out </a>
+	<p></p>
+	
+{% endblock %}
