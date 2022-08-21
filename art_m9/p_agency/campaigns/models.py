@@ -18,3 +18,15 @@ class Campaign(models.Model):
 
 	def __str__(self):
 		return f'title = {self.title} status:({self.status})'
+
+class House(models.Model):
+	city = models.CharField(max_length = 64)
+	street_type = models.CharField(max_length = 5)
+	street_name = models.CharField(max_length = 64)
+	house_number = models.IntegerField()
+	qnt_apts = models.IntegerField()
+	qnt_strs = models.IntegerField()
+	campaigns = models.ManyToManyField(Campaign, blank=True, related_name = 'c_objects')
+
+	def __str__(self):
+		return f'\n{self.city}\n {self.street_type} . {self.street_name} , {self.house_number}' 

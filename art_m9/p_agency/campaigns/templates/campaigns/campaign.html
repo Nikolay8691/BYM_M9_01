@@ -9,7 +9,15 @@
 
 	</ul>
 
+	<h1> Campaign's houses : </h1>
+	<ol>
+		{% for house in houses %}
+			<li>{{house}}</li>
+		{% empty %}
+			<li> no houses</li>
+		{% endfor %}
 
+	</ol>
 
 	<a href = "{% url 'campaigns:index' %}"> Back to campaigns list </a>
 {% endblock %}

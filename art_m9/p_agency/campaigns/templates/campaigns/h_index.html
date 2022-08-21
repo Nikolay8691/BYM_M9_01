@@ -1,0 +1,19 @@
+{% extends 'campaigns/layout.html' %}
+
+{% block body %}
+	<h1>Houses</h1>
+	<ul>
+		{% for house in houses %}
+		<li>
+			<a href="{% url 'campaigns:house' house.id %}">	
+				<p> House {{house.id}} : </p> 
+			</a>
+				<p> {{house.city}} {{house.street_type}} {{house.street_name}} {{house.house_number}}</p>
+				<p> all_apartments {{house.qnt_apts}}, all_staircases {{house.qnt_strs}}</p>
+
+		</li>	
+		{% endfor %} 
+
+	</ul>	
+	<a href = "{% url 'campaigns:index' %}"> Back to campaigns' list </a>	
+{% endblock %}

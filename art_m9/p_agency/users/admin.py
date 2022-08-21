@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 from .models import Profile
 
-from campaigns.models import Campaign, Supervisor
+from campaigns.models import Campaign, Supervisor, House
 
 # Register your models here.
 class ProfileInline(admin.StackedInline):
@@ -20,3 +20,4 @@ admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 admin.site.register(Supervisor)
 admin.site.register(Campaign)
+admin.site.register(House)
