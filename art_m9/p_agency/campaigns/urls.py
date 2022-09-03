@@ -8,4 +8,5 @@ urlpatterns = [
     path('<int:campaign_id>', views.campaign, name = 'campaign'),
     path('houses', views.h_index, name = 'h_index'),
     path('houses/<int:house_id>', views.house, name = 'house'),
+    path('add', views.add, name = 'add'),
 ] 

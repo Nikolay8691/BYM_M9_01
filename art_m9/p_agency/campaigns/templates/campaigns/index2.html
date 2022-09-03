@@ -6,6 +6,8 @@
 	<ol>
 		{% for campaign in campaigns %}
 			<li> Campaign {{campaign.id}} : {{campaign.title}}</li> 
+		{% empty %}
+			<li> no campaigns</li>
 		{% endfor %} 
 	</ol>	
 
