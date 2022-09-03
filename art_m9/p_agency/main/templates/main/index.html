@@ -1,21 +1,40 @@
 {% extends 'main/layout.html' %}
 
 {% block body %}
-
-	<h2>Campaigns' list</h2>
-	<a href = "{% url 'campaigns:index2' %}"> Campaigns' list</a>	
+	<a href = "{% url 'campaigns:index2' %}"> 
+		<h2 style = 'color: red;'>Campaigns' list</h2>
+	</a>	
+	
 	<p></p>
 
-	<h2>Users' list</h2>
-	<a href = "{% url 'users:index2' %}"> Users' list</a>	
+	<a href = "{% url 'users:index2' %}">
+		<h2 style = 'color: red;'>Users' list</h2>
+	</a>
+
 	<p></p>
+	<center>
+	<table>
+		<tr>
+			<td>
+				<h2>User registration</h2>
+				<h4>( + Profile )</h4>
+			</td>
+			<td>
+				<p></p>
+				<a href = "{% url 'users:registerplus2' %}"> Create new user and profile</a>	
+			</td>
+		</tr>
 
-	<h2>User registration + Profile</h2>
-	<a href = "{% url 'users:registerplus2' %}"> Create new user and profile</a>	
-	<p></p>	
-
-	<h2>User login</h2>
-	<a href = "{% url 'users:login' %}"> Enter </a>	
+		<tr>
+			<td>	
+				<h2>User login</h2>
+			</td>
+			<td>	
+				<a href = "{% url 'users:login' %}"> Enter </a>
+			</td>	
+		</tr>
+	</table>
+	</center>
 	<p></p>
 
 {% endblock %}
