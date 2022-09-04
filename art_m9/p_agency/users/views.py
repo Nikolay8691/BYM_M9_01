@@ -11,6 +11,8 @@ from django.contrib.auth.models import User
 
 from .models import Profile
 
+from campaigns.models import Campaign
+
 # Create your views here.
 def index2(request):
 	return render(request, 'users/index2.html', {
@@ -19,7 +21,9 @@ def index2(request):
 
 def user2(request, user2_id):
 	user2 = User.objects.get(pk = user2_id)
+	campaigns = Campaign.objects.filter(creator = user2)	
 	return render(request, 'users/user2.html', {
+		'user2_campaigns' : campaigns,				
 		'user2' : user2,
 		'message' : 'from user login'
 		})
@@ -54,6 +58,12 @@ def logout_view(request):
 	logout(request)
 	return render(request, 'users/login.html', {
 		'message' : ' Logged out '
+		})
+
+def logout_plus(request):
+	logout(request)
+	return render(request, 'users/login.html', {
+		'message' : ' To create new campaign : 1. log in 2. move to create new campaign^2 '
 		})
 
 

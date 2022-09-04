@@ -14,13 +14,33 @@
 
 	</ul>
 
+	<h1>My Campaigns</h1>
+	<ul>
+		{% for campaign in user2_campaigns %}
+		<li>
+		 	
+				Campaign {{campaign.id}} : {{campaign.title}}
+			</a>
+		</li>	
+
+		{% empty %}
+			<li> no campaigns</li>
+
+		{% endfor %} 
+
+	</ul>	
+
 	{% if message %}
 		<div> {{message}}</div>
 		<p></p>
 	{% endif %}
 
-	<a href = "{% url 'campaigns:index' %}"> Campaigns' detailed list info </a>
+	<a href = "{% url 'campaigns:index' %}"> Full campaigns' list detailed info </a>
 	<p></p>
+
+		<a href = "{% url 'campaigns:indexplususer2' user2.id %}"> Create new campaign </a>
+	<p></p>
+
 
 	<a href = "{% url 'users:logout' %}"> Log out </a>
 	<p></p>

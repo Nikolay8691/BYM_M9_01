@@ -1,14 +1,16 @@
 {% extends 'campaigns/layout.html' %}
 
 {% block body %}
+	<p> authorized user : {{user2.username}}</p>
+	<p></p>
 
 	<h1>Campaigns</h1>
 	<ul>
 		{% for campaign in campaigns %}
 		<li>
-		 	<a href="{% url 'campaigns:campaign' campaign.id %}">
+
 				Campaign {{campaign.id}} : {{campaign.title}}
-			</a>
+
 		</li>	
 
 		{% empty %}
@@ -18,14 +20,16 @@
 
 	</ul>	
 
-	<h2>Campaigns' houses</h2>
-	<a href = "{% url 'campaigns:h_index' %}"> See all campaigns' houses list</a>	
+	
+	<a href = "{% url 'campaigns:h2_index' user2.id %}"> Campaigns' available houses</a>	
 	<p></p>
 
-	<a href = "{% url 'users:logoutplus' %}"> Create new campaign </a>
-	<p></p>
+	<h2>Create new campaign</h2>
+	<a href = "{% url 'campaigns:add' user2.id %}"> Create new campaign </a>
+	<p></p>	
 
+	
 	<a href = "{% url 'users:logout' %}"> Log out </a>
 	<p></p>
-		
+	
 {% endblock %}

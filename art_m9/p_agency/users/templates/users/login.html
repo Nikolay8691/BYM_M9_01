@@ -2,12 +2,6 @@
 
 {% block body %}
 
-	{% if message %}
-		<div> {{message}}</div>
-		<a href = "{% url 'users:index2' %}"> Back to users' list </a>
-		<p></p>
-	{% endif %}
-
 	<form action="{% url 'users:login' %}" method="post">
 		{% csrf_token %}
 		<input type="text" name="username" placeholder="Username">
@@ -15,5 +9,9 @@
 		<input type="submit" value="Login">
 	</form>
 
-
+	{% if message %}
+		<div> {{message}}</div>
+		<a href = "{% url 'users:index2' %}"> Back to users' list </a>
+		<p></p>
+	{% endif %}
 {% endblock %}

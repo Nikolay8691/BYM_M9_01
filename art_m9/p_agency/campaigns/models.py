@@ -1,5 +1,7 @@
 from django.db import models
 
+from django.contrib.auth.models import User
+
 # Create your models here.
 class Supervisor(models.Model):
 	first = models.CharField(max_length = 64)
@@ -14,7 +16,8 @@ class Supervisor(models.Model):
 class Campaign(models.Model):
 	title = models.CharField(max_length = 64)
 	status = models.CharField(max_length = 1)
-	supervisor = models.ForeignKey(Supervisor, on_delete = models.CASCADE, related_name = 'made_by')
+	supervisor = models.ForeignKey(Supervisor, on_delete = models.CASCADE, related_name = 'controled_by')
+	creator = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'created_by', default = 1)
 
 	def __str__(self):
 		return f'title = {self.title} status:({self.status})'

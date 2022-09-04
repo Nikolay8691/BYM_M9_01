@@ -5,11 +5,21 @@ from django.urls import reverse
 
 from .models import Campaign, House, Supervisor
 
+from django.contrib.auth.models import User
+
 # Create your views here.
 def index(request):
 #
 	return render(request, 'campaigns/index.html', {
-		'campaigns' : Campaign.objects.all()
+		'campaigns' : Campaign.objects.all(),
+		})
+
+def indexplususer2(request, user2_id):
+	user2 = User.objects.get(pk = user2_id)
+#
+	return render(request, 'campaigns/indexplususer2.html', {
+		'campaigns' : Campaign.objects.all(),
+		'user2' : user2,
 		})
 
 def index2(request):
@@ -29,7 +39,14 @@ def campaign(request, campaign_id):
 
 def h_index(request):
 	return render(request, 'campaigns/h_index.html', {
-		'houses' : House.objects.all()
+		'houses' : House.objects.all(),
+		})	
+
+def h2_index(request, user2_id):
+	user2 = User.objects.get(pk = user2_id)
+	return render(request, 'campaigns/h2_index.html', {
+		'houses' : House.objects.all(),
+		'user2' : user2,
 		})	
 
 def house(request, house_id):
@@ -40,20 +57,21 @@ def house(request, house_id):
 		'campaigns' : house.campaigns.all(),
 		})
 
-def add(request):
+def add(request, user2_id):
 
+	user2 = User.objects.get(pk = user2_id)
 	if request.method == 'POST':
 
-		# user = User.objects.get(pk = user20_id)
 		title = request.POST['title']
 		status = request.POST['status']
 		supervisor = Supervisor.objects.get(pk=int(request.POST['supervisor']))
-		campaign = Campaign(title = title, status = status, supervisor = supervisor)
+		campaign = Campaign(title = title, status = status, supervisor = supervisor, creator = user2)
 		campaign.save()
 
-		return HttpResponseRedirect(reverse('campaigns:index'))
-
+		# return HttpResponseRedirect(reverse('campaigns:index'))
+		return HttpResponseRedirect(reverse('campaigns:indexplususer2', args = (user2.id,)))
 	else:
 		return render(request, 'campaigns/add.html', {
-			'supervisors' : Supervisor.objects.all()
+			'supervisors' : Supervisor.objects.all(),
+			'user2' : user2
 			})
