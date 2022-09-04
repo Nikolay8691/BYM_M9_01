@@ -19,5 +19,19 @@
 
 	</ol>
 
+	<h2>Add House</h2>
+	<form action = "{% url 'campaigns:book' campaign.id %}" method = "post"> 
+		{% csrf_token %}
+		<select name = 'house'>
+
+			{% for house in extra_houses %}
+				<option value = '{{house.id}}'>{{house}}</option>
+			{% endfor %}
+			
+		</select>
+		<input type="submit">
+		
+	</form>
+
 	<a href = "{% url 'campaigns:index' %}"> Back to campaigns list </a>
 {% endblock %}

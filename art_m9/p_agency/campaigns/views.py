@@ -75,3 +75,11 @@ def add(request, user2_id):
 			'supervisors' : Supervisor.objects.all(),
 			'user2' : user2
 			})
+
+def book(request, campaign_id):
+	if request.method == 'POST' :
+		campaign = Campaign.objects.get(pk=campaign_id)
+		house = House.objects.get(pk=int(request.POST['house']))
+		house.campaigns.add(campaign)
+
+	return HttpResponseRedirect(reverse('campaigns:campaign', args = (campaign.id,)))	
