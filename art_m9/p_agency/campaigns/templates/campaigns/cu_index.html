@@ -1,0 +1,24 @@
+{% extends 'campaigns/layout.html' %}
+
+{% block body %}
+
+	<h1>Check Ups</h1>
+	<ul>
+		{% for checkup in checkups %}
+		<li>
+		 	<a href="{% url 'campaigns:checkup' checkup.id %}">
+				Check UP {{checkup.id}} : {{checkup}}
+			</a>
+		</li>	
+
+		{% empty %}
+			<li> no checkups</li>
+
+		{% endfor %} 
+
+	</ul>	
+
+	<a href = "{% url 'campaigns:index' %}"> Back to campaigns list </a>
+	<p></p>
+		
+{% endblock %}

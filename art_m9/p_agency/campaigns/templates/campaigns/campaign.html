@@ -33,5 +33,19 @@
 		
 	</form>
 
+	<h1> Campaign's checkups : </h1>
+	<ol>
+		{% for checkup in checkups %}
+			<li>
+			 	<a href="{% url 'campaigns:checkup' checkup.id %}">
+					Check UP {{checkup.id}} : {{checkup}}
+				</a>
+			</li>
+		{% empty %}
+			<li> no checkups</li>
+		{% endfor %}
+
+	</ol>	
+
 	<a href = "{% url 'campaigns:index' %}"> Back to campaigns list </a>
 {% endblock %}

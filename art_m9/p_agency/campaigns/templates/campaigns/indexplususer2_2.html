@@ -1,0 +1,53 @@
+{% extends 'campaigns/layout.html' %}
+
+{% block body %}
+	<p> authorized user : {{user2.username}}</p>
+	<p></p>
+
+	<h1>Campaigns</h1>
+	<ul>
+		{% for campaign in campaigns %}
+		<li>
+
+				Campaign {{campaign.id}} : {{campaign.title}}
+
+		</li>	
+
+		{% empty %}
+			<li> no campaigns</li>
+
+		{% endfor %} 
+
+	</ul>	
+
+	
+	<a href = "{% url 'campaigns:h2_index' user2.id %}"> Campaigns' available houses</a>	
+	<p></p>
+
+	<h2>Create new campaign</h2>
+	<form> 
+		{% csrf_token %}
+			
+		<input type="text" name="title" placeholder="Campaign_title">
+		<p></p>
+		<input type="text" name="status" placeholder="A, P, F">
+		<p></p>
+
+		<select name = 'supervisor'>
+			{% for supervisor in supervisors %}
+				<option value="{{supervisor.id}}">{{ supervisor.nick }}</option>
+			{% endfor %}
+		</select>
+
+		<p></p>			
+		<input type="submit">
+		
+	</form>
+
+	<p></p>	
+
+
+	<a href = "{% url 'users:logout' %}"> Log out </a>
+	<p></p>
+	
+{% endblock %}

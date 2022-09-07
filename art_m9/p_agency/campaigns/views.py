@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
-from .models import Campaign, House, Supervisor
+from .models import Campaign, House, Supervisor, Checkup, Apartment, CheckupResults
 
 from django.contrib.auth.models import User
 
@@ -35,6 +35,7 @@ def campaign(request, campaign_id):
 		'campaign' : campaign,
 		'houses' : campaign.c_objects.all(),
 		'extra_houses' : House.objects.exclude(campaigns=campaign).all(),
+		'checkups' : campaign.departures.all()
 		})
 
 def h_index(request):
@@ -73,7 +74,7 @@ def add(request, user2_id):
 	else:
 		return render(request, 'campaigns/add.html', {
 			'supervisors' : Supervisor.objects.all(),
-			'user2' : user2
+			'user2' : user2,
 			})
 
 def book(request, campaign_id):
@@ -83,3 +84,18 @@ def book(request, campaign_id):
 		house.campaigns.add(campaign)
 
 	return HttpResponseRedirect(reverse('campaigns:campaign', args = (campaign.id,)))	
+
+def cu_index(request):
+	return render(request, 'campaigns/cu_index.html', {
+		'checkups' : Checkup.objects.all(),
+		})
+
+def checkup(request, checkup_id):
+	checkup = Checkup.objects.get(pk=checkup_id)
+	# house = checkup.house
+	# aparts = house.from_house.all()
+	results = CheckupResults.objects.filter(checkup = checkup)
+	return render(request, 'campaigns/checkup.html', {
+		'checkup' : checkup,
+		'results' : results,
+		})

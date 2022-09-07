@@ -1,0 +1,25 @@
+{% extends 'campaigns/layout.html' %}
+
+{% block body %}
+	<h1> Check UP {{checkup.id}} : </h1>
+	<ul>
+		<li>Campaign : {{checkup.campaign.title}}</li>
+		<li>House : {{checkup.house}}</li>
+		<li>Date = {{checkup.check_date}}</li>
+	</ul>
+
+	<h1> Results : </h1>
+	<ol>
+		{% for result in results %}
+
+			<li>{{result.c_date}}, apart# {{result.apart.number}} open_door : {{result.open_door}} result : {{result.opinion}} </li>
+		
+		{% empty %}
+			<li> no results</li>
+		{% endfor %}
+
+	</ol>
+
+	<a href = "{% url 'campaigns:cu_index' %}"> Check_ups' list </a>	
+
+{% endblock %}
