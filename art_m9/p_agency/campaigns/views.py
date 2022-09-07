@@ -14,14 +14,6 @@ def index(request):
 		'campaigns' : Campaign.objects.all(),
 		})
 
-def indexplususer2(request, user2_id):
-	user2 = User.objects.get(pk = user2_id)
-#
-	return render(request, 'campaigns/indexplususer2.html', {
-		'campaigns' : Campaign.objects.all(),
-		'user2' : user2,
-		})
-
 def index2(request):
 #
 	return render(request, 'campaigns/index2.html', {
@@ -58,6 +50,18 @@ def house(request, house_id):
 		'campaigns' : house.campaigns.all(),
 		})
 
+def indexplususer2(request, user2_id):
+	user2 = User.objects.get(pk = user2_id)
+#
+
+# 
+	return render(request, 'campaigns/indexplususer2.html', {
+		'campaigns' : Campaign.objects.all(),
+		'supervisors' : Supervisor.objects.all(),
+		'user2' : user2,
+		})
+
+
 def add(request, user2_id):
 
 	user2 = User.objects.get(pk = user2_id)
@@ -69,13 +73,13 @@ def add(request, user2_id):
 		campaign = Campaign(title = title, status = status, supervisor = supervisor, creator = user2)
 		campaign.save()
 
-		# return HttpResponseRedirect(reverse('campaigns:index'))
-		return HttpResponseRedirect(reverse('campaigns:indexplususer2', args = (user2.id,)))
-	else:
-		return render(request, 'campaigns/add.html', {
-			'supervisors' : Supervisor.objects.all(),
-			'user2' : user2,
-			})
+		return HttpResponseRedirect(reverse('campaigns:index'))
+		# return HttpResponseRedirect(reverse('campaigns:indexplususer2', args = (user2.id,)))
+	# else:
+	# 	return render(request, 'campaigns/add.html', {
+	# 		'supervisors' : Supervisor.objects.all(),
+	# 		'user2' : user2,
+	# 		})
 
 def book(request, campaign_id):
 	if request.method == 'POST' :

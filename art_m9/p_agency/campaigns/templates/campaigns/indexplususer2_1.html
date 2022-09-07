@@ -25,28 +25,10 @@
 	<p></p>
 
 	<h2>Create new campaign</h2>
-	<form> 
-		{% csrf_token %}
-			
-		<input type="text" name="title" placeholder="Campaign_title">
-		<p></p>
-		<input type="text" name="status" placeholder="A, P, F">
-		<p></p>
-
-		<select name = 'supervisor'>
-			{% for supervisor in supervisors %}
-				<option value="{{supervisor.id}}">{{ supervisor.nick }}</option>
-			{% endfor %}
-		</select>
-
-		<p></p>			
-		<input type="submit">
-		
-	</form>
-
+	<a href = "{% url 'campaigns:add' user2.id %}"> Create new campaign </a>
 	<p></p>	
 
-
+	
 	<a href = "{% url 'users:logout' %}"> Log out </a>
 	<p></p>
 	
