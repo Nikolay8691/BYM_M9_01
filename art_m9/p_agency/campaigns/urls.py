@@ -9,6 +9,7 @@ urlpatterns = [
     path('index2', views.index2, name = 'index2'),
     path('cu_index', views.cu_index, name = 'cu_index'),
     path('cu_index/<int:checkup_id>', views.checkup, name = 'checkup'),
+    path('cu_index/<int:checkup_id>/add_result', views.add_result, name = 'add_result'),
     path('<int:campaign_id>', views.campaign, name = 'campaign'),
     path('<int:campaign_id>/book', views.book, name = 'book'),
     path('houses', views.h_index, name = 'h_index'),

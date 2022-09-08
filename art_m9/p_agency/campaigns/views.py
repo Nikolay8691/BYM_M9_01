@@ -75,11 +75,6 @@ def add(request, user2_id):
 
 		return HttpResponseRedirect(reverse('campaigns:index'))
 		# return HttpResponseRedirect(reverse('campaigns:indexplususer2', args = (user2.id,)))
-	# else:
-	# 	return render(request, 'campaigns/add.html', {
-	# 		'supervisors' : Supervisor.objects.all(),
-	# 		'user2' : user2,
-	# 		})
 
 def book(request, campaign_id):
 	if request.method == 'POST' :
@@ -96,10 +91,45 @@ def cu_index(request):
 
 def checkup(request, checkup_id):
 	checkup = Checkup.objects.get(pk=checkup_id)
-	# house = checkup.house
-	# aparts = house.from_house.all()
+	house = checkup.house
+	aparts = house.from_house.all()
 	results = CheckupResults.objects.filter(checkup = checkup)
 	return render(request, 'campaigns/checkup.html', {
 		'checkup' : checkup,
 		'results' : results,
+		'aparts' : aparts,
 		})
+
+def add_result(request, checkup_id):
+
+	checkup = Checkup.objects.get(pk = checkup_id)
+	house = checkup.house
+	aparts = house.from_house.all()
+	checkupresult_list = checkup.reason.all()
+
+	if request.method == 'POST':
+		apart = Apartment.objects.get(pk=int(request.POST['apart']))
+		c_date = request.POST['c_date']
+		open_door = request.POST['open_door']
+		opinion = request.POST['opinion']
+		c_name = request.POST['c_name']
+		c_phone = request.POST['c_phone']
+		comments = request.POST['comments']
+
+		if open_door == 'on':
+			open_door = True
+		else:
+			open_door = False
+
+		checkupresult = CheckupResults(checkup = checkup, apart = apart, c_date = c_date, open_door = open_door, opinion = opinion, c_name = c_name, c_phone = c_phone, comments = comments)
+		checkupresult.save()
+
+		# return HttpResponseRedirect(reverse('campaigns:cu_index'))
+		return HttpResponseRedirect(reverse('campaigns:checkup', args = (checkup.id,)))		
+
+	return render(request, 'campaigns/add_result.html', {
+		'checkup' : checkup,
+		'extra_aparts' : aparts,
+		'checkupresult_list' : checkupresult_list,
+		})
+

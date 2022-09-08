@@ -8,7 +8,7 @@
 		<li>Date = {{checkup.check_date}}</li>
 	</ul>
 
-	<h1> Results : </h1>
+	<h1> Current checkup_results : </h1>
 	<ol>
 		{% for result in results %}
 
@@ -19,6 +19,11 @@
 		{% endfor %}
 
 	</ol>
+
+	<h1> Add Results : </h1>
+
+	<a href="{% url 'campaigns:add_result' checkup.id %}"> Add result</a>
+	<p></p>
 
 	<a href = "{% url 'campaigns:cu_index' %}"> Check_ups' list </a>	
 

@@ -1,0 +1,62 @@
+{% extends 'campaigns/layout.html' %}
+
+{% block body %}
+	<p> Check UP {{checkup.id}}: {{checkup}}</p>
+	<p></p>
+
+	<h2>Current checkup_results</h2>
+	<ol>
+		{% for checkupresult in checkupresult_list %}
+			<li>APART : apart_# : {{checkupresult.apart.number}} {{checkupresult}} </li>
+		{% empty %}
+			<li> no checkupresults </li>
+		{% endfor %}
+
+	</ol>
+
+	<h2>Add new result</h2>
+	<form action = "{% url 'campaigns:add_result' checkup.id %}" method = "post"> 
+		{% csrf_token %}
+		
+		<select name = 'apart'>
+			{% for apart in extra_aparts %}
+				<option value = '{{apart.id}}'>{{apart}}</option>
+			{% endfor %}
+		</select>
+
+		<p></p>
+		<label>contact date&time</label>
+		<input type="datetime-local" name="c_date">
+		<p></p> 
+		<label>open door</label>
+		<input type="checkbox" name="open_door" placeholder="True/False">
+		<p></p>
+
+		<label>opinion</label>
+		<select name="opinion">
+			<option value = 'positive'>positive</option>
+			<option value = 'neutral'>neutral</option>
+			<option value = 'negative'>negative</option>			
+		</select>
+
+		<p></p>
+		<input type="text" name="c_name" placeholder="contact name">
+		<p></p>
+		<input type="text" name="c_phone" placeholder="contact phone">
+		<p></p>
+
+		<textarea name="comments" placeholder="comments"></textarea>
+		<p></p>
+
+		<p></p>			
+		<input type="submit">
+		
+	</form>
+
+	<p></p>	
+
+
+	<a href = "{% url 'users:logout' %}"> Log out </a>
+	<p></p>
+	
+{% endblock %}
