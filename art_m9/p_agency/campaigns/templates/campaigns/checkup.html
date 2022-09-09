@@ -12,7 +12,7 @@
 	<ol>
 		{% for result in results %}
 
-			<li>{{result.c_date}}, apart# {{result.apart.number}} open_door : {{result.open_door}} result : {{result.opinion}} </li>
+			<li>{{result.opinion}} : {{result.c_date}}, apart# {{result.apart.number}} open_door : {{result.open_door}}</li>
 		
 		{% empty %}
 			<li> no results</li>

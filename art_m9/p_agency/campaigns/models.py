@@ -57,11 +57,17 @@ class CheckupResults(models.Model):
 	checkup = models.ForeignKey(Checkup, on_delete = models.CASCADE, related_name = 'reason')
 	apart = models.ForeignKey(Apartment, on_delete = models.CASCADE, related_name = 'answer')
 	c_date = models.DateTimeField(blank = True)
+
 	open_door = models.BooleanField(default = False)
-	opinion = models.CharField(max_length = 64, blank = True, default = 'nothing')
+
+	opinion = models.CharField(max_length = 64, blank = True)
 	c_name = models.CharField(max_length = 64, blank = True)
 	c_phone = models.CharField(max_length = 64, blank = True)
 	comments = models.TextField(blank = True)
 
 	def __str__(self):
 		return f'{self.checkup.campaign.title} {self.checkup.house.city} {self.c_date} open : {self.open_door}'
+
+	class Meta:
+		verbose_name = 'CheckupResults'
+		verbose_name_plural = 'CheckupResults_list'

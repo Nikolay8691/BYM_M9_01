@@ -107,10 +107,25 @@ def add_result(request, checkup_id):
 	aparts = house.from_house.all()
 	checkupresult_list = checkup.reason.all()
 
+	s1 = set()
+	for c in checkupresult_list:
+		s1.add(c.apart)
+	s2 = set()
+	for a in aparts:
+		s2.add(a)
+	s2 -= s1
+	if len(s2) > 0:
+		message = True
+	else:
+		message = False
+
 	if request.method == 'POST':
 		apart = Apartment.objects.get(pk=int(request.POST['apart']))
 		c_date = request.POST['c_date']
-		open_door = request.POST['open_door']
+
+		# open_door = request.POST['open_door']
+		open_door = request.POST.get('open_door',False)
+
 		opinion = request.POST['opinion']
 		c_name = request.POST['c_name']
 		c_phone = request.POST['c_phone']
@@ -129,7 +144,8 @@ def add_result(request, checkup_id):
 
 	return render(request, 'campaigns/add_result.html', {
 		'checkup' : checkup,
-		'extra_aparts' : aparts,
+		# 'extra_aparts' : aparts,
+		'extra_aparts' : s2,
 		'checkupresult_list' : checkupresult_list,
+		'message' : message,
 		})
-
