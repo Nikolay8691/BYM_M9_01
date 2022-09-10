@@ -4,8 +4,26 @@
 
 	<script type="text/javascript">
 		document.addEventListener('DOMContentLoaded', function() {
-			document.querySelector('#open').onclick = function() {
-				document.querySelector('#openyes').style.visibility = 'visible';
+
+			let id_open = document.querySelector('#open');
+
+			id_open.onclick = function() {
+
+				let id_openyes = document.querySelector('#openyes');
+
+				if (id_open.checked) {
+					id_openyes.style.visibility = 'visible';
+				} else {
+					id_openyes.style.visibility = 'hidden';	
+
+					// let a = document.querySelector('#notopen1').value;
+					// document.querySelector('.out').innerHTML = a;
+					// document.querySelector('#notopen1').value = 'ok';
+					document.querySelector('#select1').selectedIndex = 1;
+					document.querySelector('#input1').value = '';
+					document.querySelector('#input2').value = '';
+					document.querySelector('#textarea1').value = '';
+				}
 			}
 		})
 	</script>
@@ -42,14 +60,19 @@
 			<label>contact date&time</label>
 			<input type="datetime-local" name="c_date">
 			<p></p> 
+
+<!-- 			<input id = "notopen1" type="text" name="c_open" placeholder="notopen">
+			<div class="out">here</div>
+			<p></p>
+ -->
 			<label>open door</label>
 			<input id="open" type="checkbox" name="open_door" placeholder="True/False">
 			<p></p>
 
-			<div id="openyes" style = 'visibility: hidden;'>
+			<div id="openyes" style = 'visibility:hidden;'>
 
 				<label>opinion</label>
-				<select name="opinion">
+				<select id = "select1" name="opinion">
 
 					<option value = 'positive'>positive</option>
 					<option value = 'neutral' selected>neutral</option>
@@ -58,12 +81,12 @@
 				</select>
 
 				<p></p>
-				<input type="text" name="c_name" placeholder="contact name">
+				<input id = "input1" type="text" name="c_name" placeholder="contact name">
 				<p></p>
-				<input type="text" name="c_phone" placeholder="contact phone">
+				<input id = "input2" type="text" name="c_phone" placeholder="contact phone">
 				<p></p>
 
-				<textarea name="comments" placeholder="comments"></textarea>
+				<textarea id = "textarea1" name="comments" placeholder="comments"></textarea>
 				<p></p>
 
 			</div>
