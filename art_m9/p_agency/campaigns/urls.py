@@ -14,5 +14,6 @@ urlpatterns = [
     path('<int:campaign_id>/book', views.book, name = 'book'),
     path('houses', views.h_index, name = 'h_index'),
     path('houses/<int:house_id>', views.house, name = 'house'),
-    path('houses2/<int:user2_id>', views.h2_index, name = 'h2_index'),        
+    path('houses2/<int:user2_id>', views.h2_index, name = 'h2_index'),
+    path('stat_index', views.stat_index, name = 'stat_index'),       
 ] 

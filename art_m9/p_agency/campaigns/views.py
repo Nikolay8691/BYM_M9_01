@@ -149,3 +149,175 @@ def add_result(request, checkup_id):
 		'checkupresult_list' : checkupresult_list,
 		'message' : message,
 		})
+
+def stat_index(request):
+	campaigns = Campaign.objects.all()
+#
+	c_sum = len(campaigns)
+	if c_sum > 0:
+
+		message_0 = f'detected {c_sum} campaigns'
+
+		sum_1 = c_sum
+		message_1 = [[0, 0] for i in range(sum_1)]
+		i_1 = 0
+		
+		c_opens = {}
+		c_opinions ={}
+		for campaign in campaigns:
+
+			x = 0
+
+			x_positive = 0 
+			x_neutral = 0 
+			x_negative = 0
+
+			c_opens [str(campaign.id)] = x
+			c_opinions [str(campaign.id)] = [x_positive, x_neutral, x_negative]
+			c_houses = 0
+			houses = campaign.c_objects.all()
+			checkups = campaign.departures.all()
+
+			h_sum = len(houses)
+			message_1[i_1] = [campaign.id, h_sum]
+			i_1 += 1
+			
+			if h_sum > 0:
+
+				sum_2 = c_sum + h_sum
+				message_2 = [[0, 0, 0] for j in range(sum_2)]
+				i_2 = 0
+
+				h_opens = {}
+				h_opinions ={}
+				for house in houses:
+					# c_houses += 1
+
+					a = [campaign.id, house.id]
+					b = f'campaign_id : {campaign.id} house_id : {house.id}'
+
+					y = 0
+					y_positive = 0
+					y_neutral = 0
+					y_negative = 0
+					h_checkups = 0
+
+					h_opens [b] = [a, y]
+					h_opinions [b] = [a, y_positive, 0, y_neutral, 0, y_negative, 0]
+					
+					checkups = checkups.filter(house = house)
+					ch_sum = len(checkups)
+
+					message_2[i_2] = [campaign.id, house.id, ch_sum]
+					i_2 += 1
+					
+					if ch_sum > 0:
+						c_houses += 1
+
+						sum_3 = c_sum + h_sum + ch_sum
+						message_3 = [[0, 0, 0, 0] for k in range(sum_3)]
+						i_3 = 0
+
+						for checkup in checkups:
+							# h_checkups += 1
+							ch_opens = 0
+
+							results = checkup.reason.all()
+							res_sum = len(results)
+
+							message_3[i_3] = [campaign.id, house.id, checkup.id, res_sum]
+							i_3 += 1
+							
+							if res_sum > 0:
+								h_checkups += 1
+
+								d_sum = 0
+								d_open = 0
+								positive_sum = 0
+								neutral_sum = 0
+								negative_sum = 0
+								for result in results:
+									d_sum += 1
+
+									if result.open_door :
+										d_open += 1
+
+										if result.opinion == 'positive':
+											positive_sum += 1
+										elif result.opinion == 'neutral':
+											neutral_sum += 1
+										else:
+											negative_sum += 1
+
+								ch_opens = d_open/d_sum
+								y += ch_opens
+
+								ch_positive = positive_sum/d_sum
+								ch_neutral = neutral_sum/d_sum
+								ch_negative = negative_sum/d_sum
+
+								y_positive += ch_positive
+								y_neutral += ch_neutral
+								y_negative += ch_negative
+
+							else:
+								print (f'no results detected in campaign {campaign.id} : {campaign.title} in house {house.id} : {house.city} in checkup {checkup.id}')
+						
+						# print('1c_id ',campaign.id, ' h_id ',house.id, ' ch_id ', checkup.id, ' y ', y, ' h_checkups ',h_checkups)
+						if h_checkups == 0:
+							c_houses -= 1
+
+						# h_opens += ch_opens/h_checkups
+						h_opens [b] = [a, y/h_checkups*100]
+						h_opinions [b] = [
+							a, 
+							round(y_positive/h_checkups*100, 2), positive_sum,
+							round(y_neutral/h_checkups*100, 2), neutral_sum,
+							round(y_negative/h_checkups*100, 2), negative_sum 
+						]
+						x += y/h_checkups
+
+						x_positive += y_positive/h_checkups
+						x_neutral += y_neutral/h_checkups
+						x_negative += y_negative/h_checkups
+						# print('c_id ',campaign.id, ' h_id ',house.id, ' ch_id ', checkup.id, ' y ', y, ' h_checkups ',h_checkups)
+
+					else:
+						print (f'no checkups detected in campaign {campaign.id} : {campaign.title} in house {house.id} : {house.city}')
+
+				# print(campaign.id, x, c_houses)
+				if c_houses > 0:
+					c_opens[str(campaign.id)] = round(x/c_houses*100)
+					# c_opens[str(campaign.id)] = h_opens/c_houses
+
+					c_opinions[str(campaign.id)] = [
+						round(x_positive/c_houses*100),
+						round(x_neutral/c_houses*100),
+						round(x_negative/c_houses*100)
+					]
+				else:
+					c_opens[str(campaign.id)] = 0
+				
+
+			else:
+				print (f'no houses detected in campaign {campaign.id} : {campaign.title}')
+
+	else:
+		message_0 = f'no campaigns detected'
+		print('no campaigns detected')
+
+
+	return render(request, 'campaigns/stat_index.html', {
+		'campaigns' : Campaign.objects.all(),
+		'houses' : House.objects.all(),
+		'checkups' : Checkup.objects.all(),
+		'checkupresults' : CheckupResults.objects.all(),
+		'message_0' : message_0,
+		'message_1' : message_1,
+		'message_2' : message_2,
+		'message_3' : message_3,
+		'houses_open' : h_opens,
+		'houses_opinions' : h_opinions,
+		'campaigns_open' : c_opens,
+		'campaigns_opinions' : c_opinions,
+		})
