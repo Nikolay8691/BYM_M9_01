@@ -1,0 +1,121 @@
+{% extends 'campaigns/layout.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+
+	<h1>Campaigns</h1>
+	<ol>
+		{% for campaign in campaigns %}
+		<li>
+		 	<a href="{% url 'campaigns:campaign' campaign.id %}">
+				Campaign {{campaign.id}} : {{campaign.title}}
+			</a>
+		</li>	
+
+		{% empty %}
+			<li> no campaigns</li>
+		{% endfor %} 
+	</ol>	
+
+	<h1>Houses</h1>
+	<ol>
+		{% for house in houses %}
+		<li>
+		 	<a href="{% url 'campaigns:house' house.id %}">
+				House {{house.id}} : {{house}}
+			</a>
+		</li>	
+
+		{% empty %}
+			<li> no houses</li>
+		{% endfor %} 
+	</ol>	
+
+	<h1>Check Ups</h1>
+	<ol>
+		{% for checkup in checkups %}
+		<li>
+		 	<a href="{% url 'campaigns:checkup' checkup.id %}">
+				Checkup {{checkup.id}} : {{checkup}}
+			</a>
+		</li>	
+
+		{% empty %}
+			<li> no checkups</li>
+		{% endfor %} 
+	</ol>
+
+	<h1>Checkup Results</h1>
+	<ol>
+		{% for checkupresult in checkupresults %}
+		<li>CheckupResults {{checkupresult.id}} : {{checkupresult}}</li>	
+
+		{% empty %}
+			<li> no checkupresults</li>
+		{% endfor %} 
+	</ol>
+
+	<h1>Statistics</h1>
+	<h2>Campaigns (open_doors)</h2>
+
+	<ol>
+		{% for key, value in campaigns_open.items %}
+		<li>Campaign id: {{key}}, open_doors :{{value}} %</li>	
+
+		{% empty %}
+			<li> no campaigns</li>
+		{% endfor %} 
+	</ol>	
+
+	<h2>Houses in Campaigns (open_doors)</h2>
+	<ol>
+		{% for key, value in houses_open.items %}
+		<li>House & Campaign id: {{key}}, {{value}}</li>	
+
+		{% empty %}
+			<li> no houses</li>
+		{% endfor %} 
+	</ol>	
+
+
+	<p></p>
+	<h2>Campaigns (opinions)</h2>
+	<ol>
+		{% for key, value in campaigns_opinions.items %}
+		<li>Campaign id: {{key}}, {{value}}</li>	
+
+		{% empty %}
+			<li> no campaigns</li>
+		{% endfor %} 
+	</ol>	
+
+	<h2>Houses in Campaigns (opinions)</h2>
+	<ol>
+		{% for key, value in houses_opinions.items %}
+		<li>House & Campaign id: {{key}}, {{value}}</li>	
+
+		{% empty %}
+			<li> no houses</li>
+		{% endfor %} 
+	</ol>
+
+	<p></p>
+
+<!-- 	<h2>Campaigns</h2>
+ -->	<a href = "{% url 'campaigns:index' %}"> See all campaigns' list</a>	
+	<p></p>
+
+<!-- 	<h2>Campaigns' houses</h2>
+ -->	<a href = "{% url 'campaigns:h_index' %}"> See all campaigns' houses list</a>	
+	<p></p>
+
+<!-- 	<h2>Campaigns' check ups</h2>
+ -->	<a href = "{% url 'campaigns:cu_index' %}"> See all campaigns' check ups list</a>	
+	<p></p>
+
+	<a href = "{% url 'users:logout' %}"> Log out </a>
+	<p></p>
+		
+{% endblock %}

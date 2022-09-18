@@ -1,5 +1,31 @@
 {% extends 'campaigns/layout.html' %}
 
+{% block head %}
+	<style type="text/css">
+			table {
+				border: 1px solid black;
+				border-collapse: collapse;
+			}
+			td, th {
+				border: 1px solid black;
+				text-align: center;
+				padding: 10px;
+			}
+			th {
+				font-weight: bold;
+				font-size: 20px;
+			}
+			.under_table {
+				font-size: 12px;
+			}
+			.n_inorder {
+				font-style: normal;
+				font-weight: bold;
+				color: blue;
+			}
+		</style>
+{% endblock %}
+
 {% block body %}
 
 	<h1>Campaigns</h1>
@@ -13,9 +39,7 @@
 
 		{% empty %}
 			<li> no campaigns</li>
-
 		{% endfor %} 
-
 	</ol>	
 
 	<h1>Houses</h1>
@@ -29,9 +53,7 @@
 
 		{% empty %}
 			<li> no houses</li>
-
 		{% endfor %} 
-
 	</ol>	
 
 	<h1>Check Ups</h1>
@@ -45,106 +67,163 @@
 
 		{% empty %}
 			<li> no checkups</li>
-
 		{% endfor %} 
-
 	</ol>
 
 	<h1>Checkup Results</h1>
 	<ol>
 		{% for checkupresult in checkupresults %}
-		<li>
-
-				CheckupResults {{checkupresult.id}} : {{checkupresult}}
-
-		</li>	
+		<li>CheckupResults {{checkupresult.id}} : {{checkupresult}}</li>	
 
 		{% empty %}
 			<li> no checkupresults</li>
-
 		{% endfor %} 
-
 	</ol>
 
 	<h1>Statistics</h1>
-	<h2>Campaigns (open_doors)</h2>
-	<ol>
-		{% for key, value in campaigns_open.items %}
-		<li>
-		 	
-			<p>Campaign id: {{key}}, open_doors :{{value}} %</p>
-				
-		</li>	
 
-		{% empty %}
-			<li> no campaigns</li>
+	<div id = "stats">
+		<h2>Campaigns (open_doors)</h2>
+		<table>
+			
+			<thead>
+				<tr>
+					<th>N</th>
+					<th>c_id</th>
+					<th>Campaign title</th>
+					<th>Open doors, % *</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for key, value in campaigns1_open.items %}
+					<tr>
+						<td class = "n_inorder">{{key}}</td>
+						<td>{{value.0}}</td>
+						<td>{{value.1}}</td>
+						<td>{{value.2}}</td>
+					</tr>
+				{% empty %}
+					<tr> no campaigns</tr>
+				{% endfor %}
+			</tbody>		 
+			
+		</table>	
 
-		{% endfor %} 
+		<p class = "under_table">* - percent of open doors of questioned</p>
+		<p></p>
 
-	</ol>	
+		<h2>Houses in Campaigns (open_doors)</h2>
+		<table>
+			
+			<thead>
+				<tr>
+					<th>N</th>
+					<th>c_id</th>
+					<th>Campaign title</th>
+					<th>h_id</th>
+					<th>House city</th>
+					<th>Open doors, % *</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for key, value in houses1_open.items %}
+					<tr>
+						<td class = "n_inorder">{{key}}</td>
+						<td>{{value.0}}</td>
+						<td>{{value.1}}</td>
+						<td>{{value.2}}</td>
+						<td>{{value.3}}</td>
+						<td>{{value.4}}</td>
+					</tr>
+				{% empty %}
+					<tr> no houses</tr>
+				{% endfor %}
+			</tbody>		 
+			
+		</table>
+			<p class = "under_table">* - percent of open doors of questioned</p>
+		<p></p>
+		<p></p>
 
-	<h2>Houses in Campaigns (open_doors)</h2>
-	<ol>
-		{% for key, value in houses_open.items %}
-		<li>
-		 	
-			<p>House & Campaign id: {{key}}, {{value}}</p>
-				
-		</li>	
+		<h2>Campaigns (opinions)</h2>
+		<table>
+			
+			<thead>
+				<tr>
+					<th>N</th>
+					<th>c_id</th>
+					<th>Campaign title</th>
+					<th>Positive, % *</th>
+					<th>Neutral, % *</th>
+					<th>Negative, % *</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for key, value in campaigns1_opinion.items %}
+					<tr>
+						<td class = "n_inorder">{{key}}</td>
+						<td>{{value.0}}</td>
+						<td>{{value.1}}</td>
+						<td>{{value.2}}</td>
+						<td>{{value.3}}</td>
+						<td>{{value.4}}</td>
+					</tr>
+				{% empty %}
+					<tr> no campaigns</tr>
+				{% endfor %}
+			</tbody>		 
+			
+		</table>	
 
-		{% empty %}
-			<li> no houses</li>
+		<p class = "under_table">* - percent of open doors of questioned</p>
+		<p></p>
 
-		{% endfor %} 
-
-	</ol>	
-
+		<h2>Houses in Campaigns (opinions)</h2>
+		<table>
+			
+			<thead>
+				<tr>
+					<th>N</th>
+					<th>c_id</th>
+					<th>Campaign title</th>
+					<th>h_id</th>
+					<th>House city</th>
+					<th>Positive, % *</th>
+					<th>Neutral, % *</th>
+					<th>Negative, % *</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for key, value in houses1_opinion.items %}
+					<tr>
+						<td class = "n_inorder">{{key}}</td>
+						<td>{{value.0}}</td>
+						<td>{{value.1}}</td>
+						<td>{{value.2}}</td>
+						<td>{{value.3}}</td>
+						<td>{{value.4}}</td>
+						<td>{{value.5}}</td>
+						<td>{{value.6}}</td>
+					</tr>
+				{% empty %}
+					<tr> no houses</tr>
+				{% endfor %}
+			</tbody>		 
+			
+		</table>
+			<p class = "under_table">* - percent of open doors of questioned</p>
+		<p></p>
+	</div>
 
 	<p></p>
-	<h2>Campaigns (opinions)</h2>
-	<ol>
-		{% for key, value in campaigns_opinions.items %}
-		<li>
-		 	
-			<p>Campaign id: {{key}}, {{value}}</p>
-				
-		</li>	
 
-		{% empty %}
-			<li> no campaigns</li>
-
-		{% endfor %} 
-
-	</ol>	
-
-	<h2>Houses in Campaigns (opinions)</h2>
-	<ol>
-		{% for key, value in houses_opinions.items %}
-		<li>
-		 	
-			<p>House & Campaign id: {{key}}, {{value}}</p>
-				
-		</li>	
-
-		{% empty %}
-			<li> no houses</li>
-
-		{% endfor %} 
-
-	</ol>	
-
-
-
-<!-- 	<h2>Campaigns</h2>
- -->	<a href = "{% url 'campaigns:index' %}"> See all campaigns' list</a>	
+	<a href = "{% url 'campaigns:index' %}"> See all campaigns' list</a>	
 	<p></p>
 
-<!-- 	<h2>Campaigns' houses</h2>
- -->	<a href = "{% url 'campaigns:h_index' %}"> See all campaigns' houses list</a>	
+	<a href = "{% url 'campaigns:h_index' %}"> See all campaigns' houses list</a>	
 	<p></p>
 
-<!-- 	<h2>Campaigns' check ups</h2>
- -->	<a href = "{% url 'campaigns:cu_index' %}"> See all campaigns' check ups list</a>	
+	<a href = "{% url 'campaigns:cu_index' %}"> See all campaigns' check ups list</a>	
 	<p></p>
 
 	<a href = "{% url 'users:logout' %}"> Log out </a>

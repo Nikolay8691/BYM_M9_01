@@ -152,15 +152,29 @@ def add_result(request, checkup_id):
 
 def stat_index(request):
 	campaigns = Campaign.objects.all()
+	houses_all = House.objects.all()
+	checkups_all = Checkup.objects.all()
+
+	sum_1 = len(campaigns)
+	sum_2 = sum_1 * len(houses_all)
+	sum_3 = sum_2 * len(checkups_all)
+
+	message_1 = [[0, 0] for i in range(sum_1)]
+	message_2 = [[0, 0, 0] for i in range(sum_2)]
+	message_3 = [[0, 0, 0, 0] for i in range(sum_3)]
+	i_1 = 0
+	i_2 = 0
+	i_3 = 0
+
 #
 	c_sum = len(campaigns)
 	if c_sum > 0:
 
 		message_0 = f'detected {c_sum} campaigns'
 
-		sum_1 = c_sum
-		message_1 = [[0, 0] for i in range(sum_1)]
-		i_1 = 0
+		# sum_1 = c_sum
+		# message_1 = [[0, 0] for i in range(sum_1)]
+		# i_1 = 0
 		
 		c_opens = {}
 		c_opinions ={}
@@ -184,9 +198,9 @@ def stat_index(request):
 			
 			if h_sum > 0:
 
-				sum_2 = c_sum + h_sum
-				message_2 = [[0, 0, 0] for j in range(sum_2)]
-				i_2 = 0
+				# sum_2 = h_sum
+				# message_2 = [[0, 0, 0] for j in range(sum_2)]
+				# i_2 = 0
 
 				h_opens = {}
 				h_opinions ={}
@@ -214,9 +228,9 @@ def stat_index(request):
 					if ch_sum > 0:
 						c_houses += 1
 
-						sum_3 = c_sum + h_sum + ch_sum
-						message_3 = [[0, 0, 0, 0] for k in range(sum_3)]
-						i_3 = 0
+						# sum_3 = ch_sum
+						# message_3 = [[0, 0, 0, 0] for k in range(sum_3)]
+						# i_3 = 0
 
 						for checkup in checkups:
 							# h_checkups += 1
@@ -306,18 +320,74 @@ def stat_index(request):
 		message_0 = f'no campaigns detected'
 		print('no campaigns detected')
 
+	print ('\n message_0', message_0)
+	print ('\n message_1', message_1)
+	print ('\n message_2 :\n', message_2)
+	print ('\n message_3 :\n', message_3)
 
+	c1_opens = c_opens_printhtml(c_opens)
+	h1_opens = h_opens_printhtml(h_opens)
+	c1_opinions = c_opinions_printhtml(c_opinions)
+	h1_opinions = h_opinions_printhtml(h_opinions)
+	
 	return render(request, 'campaigns/stat_index.html', {
 		'campaigns' : Campaign.objects.all(),
 		'houses' : House.objects.all(),
 		'checkups' : Checkup.objects.all(),
 		'checkupresults' : CheckupResults.objects.all(),
-		'message_0' : message_0,
-		'message_1' : message_1,
-		'message_2' : message_2,
-		'message_3' : message_3,
 		'houses_open' : h_opens,
 		'houses_opinions' : h_opinions,
 		'campaigns_open' : c_opens,
 		'campaigns_opinions' : c_opinions,
+		'campaigns1_open' : c1_opens,
+		'houses1_open' : h1_opens,
+		'campaigns1_opinion' : c1_opinions,
+		'houses1_opinion' : h1_opinions,
 		})
+
+def c_opens_printhtml(c_opens):
+	i = 0
+	c1_opens = {}
+	for key, value in c_opens.items():
+
+		campaign = Campaign.objects.get(pk=key)
+		c1_opens[str(i)] = [campaign.id, campaign.title, value]
+		i += 1
+
+	return c1_opens
+
+def h_opens_printhtml(h_opens):
+	i = 0
+	h1_opens = {}
+	for value in h_opens.values():
+
+		data_id, data = value
+		campaign = Campaign.objects.get(pk = data_id[0])
+		house = House.objects.get(pk = data_id[1])
+		h1_opens[str(i)] = [campaign.id, campaign.title, house.id, house.city, data]
+		i += 1
+
+	return h1_opens
+
+def c_opinions_printhtml(c_opinions):
+	i = 0
+	c1_opinions = {}
+	for key, value in c_opinions.items():
+		positive, neutral, negative = value
+		campaign = Campaign.objects.get(pk=key)
+		c1_opinions[str(i)] = [campaign.id, campaign.title, positive, neutral, negative]
+		i += 1
+
+	return c1_opinions
+
+def h_opinions_printhtml(h_opinions):
+	i = 0
+	h1_opinions = {}
+	for value in h_opinions.values():
+		data_id, positive, positive_sum, neutral, neutral_sum, negative, negative_sum = value
+		campaign = Campaign.objects.get(pk = data_id[0])
+		house = House.objects.get(pk = data_id[1])
+		h1_opinions[str(i)] = [campaign.id, campaign.title, house.id, house.city, positive, neutral, negative]
+		i += 1
+
+	return h1_opinions
