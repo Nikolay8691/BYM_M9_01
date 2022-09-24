@@ -1,0 +1,65 @@
+{% extends 'users/layout.html' %}
+
+{% block body %}
+	<h1>Welcome, {{user2.username}}</h1>
+
+	<h1> User2 (user_id : {{user2.id}}) : </h1>
+<!-- 	<ul>
+
+		<li>first_name : {{user20.first_name}}</li>
+		<li>last_name : {{user20.last_name}}</li>
+		<li>email = {{user20.email}}</li>
+
+
+	</ul>
+ -->
+	{% if message %}
+		<div> {{message}}</div>
+		<p></p>
+	{% endif %}
+
+	<h2>Fix user_profile</h2>
+	<form action = "{% url 'users:c_profile2' user2.id %}" method = "post"> 
+		{% csrf_token %}
+			
+		<div>
+			<label>nick</label>
+			<input type="text" name="nick" value={{user2.profile.nick}}>
+		</div>
+		<div>
+			<label>phone</label>
+			<input type="text" name="phone" value={{user2.profile.phone}}>
+		</div>
+		<div>
+			<label>first name</label>
+			<input type="text" name="f_name" value={{user2.profile.f_name}}>
+		</div>
+		<div>
+			<label>last name</label>
+			<input type="text" name="l_name" value={{user2.profile.l_name}}>
+		</div>
+		<div>
+			<label>email</label>
+			<input type="email" name="email" value={{user2.profile.email}}>
+		</div>
+		<div>
+			<label>sex</label>
+			<input type="text" name="sex" value={{user2.profile.sex}}>
+		</div>
+		<div>
+			<label>address</label>
+			<input type="text" name="address" value={{user2.profile.address}}>
+		</div>
+		<div>
+			<label>birth_date</label>
+			<input type="date" name="bdate" required>
+		</div>	
+
+		<input type="submit">
+		
+	</form>
+
+	<p></p>
+		<a href = "{% url 'users:user2' user2.id %}"> Back to user2's page </a>
+	<p></p>
+{% endblock %}

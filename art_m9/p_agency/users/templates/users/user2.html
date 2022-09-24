@@ -5,12 +5,11 @@
 
 	<h1> User2 (user_id : {{user2.id}}) : </h1>
 	<ul>
-<!-- 
-		<li>first_name : {{user2.first_name}}</li>
-		<li>last_name : {{user2.last_name}}</li>
-		<li>email = {{user2.email}}</li>
 
- -->		
+		<li>first_name : {{user2.profile.f_name}}</li>
+		<li>last_name : {{user2.profile.l_name}}</li>
+		<li>email = {{user2.profile.email}}</li>
+		
  		<li>nick = {{user2.profile.nick}}</li>
 		<li>phone = {{user2.profile.phone}}</li>
 
@@ -43,6 +42,8 @@
 		<a href = "{% url 'campaigns:indexplususer2' user2.id %}"> Create new campaign </a>
 	<p></p>
 
+	<a href = "{% url 'users:c_profile2' user2.id %}"> Fix user's profile </a>
+	<p></p>
 
 	<a href = "{% url 'users:logout' %}"> Log out </a>
 	<p></p>

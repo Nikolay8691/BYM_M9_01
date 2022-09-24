@@ -103,3 +103,43 @@ def create_profile2(request, user20_id):
 		return render(request, 'users/login.html', {
 			'message' : ' 2_Profile is created! '
 			})
+
+def c_profile2(request, user2_id):
+	user2 = User.objects.get(pk = user2_id)
+	campaigns = Campaign.objects.filter(creator = user2)
+
+	if request.method == "GET":
+		# user2 = User.objects.get(pk = user2_id)
+		return render(request, 'users/c_user20.html', {
+			# 'form': ProfileForm2,
+			'user2' : user2,
+			})
+
+	elif request.method == "POST":
+
+		# user = User.objects.get(pk = user2_id)
+		u_profile = Profile.objects.get(user = user2)
+		u_profile.nick = request.POST['nick']
+		u_profile.phone = request.POST['phone']
+
+		u_profile.f_name = request.POST['f_name']
+		u_profile.l_name = request.POST['l_name']
+		u_profile.email = request.POST['email']
+
+		u_profile.sex = request.POST['sex']
+		u_profile.address = request.POST['address']
+		u_profile.bdate = request.POST['bdate']
+
+		# profile = Profile(user = user, nick = user_nick, phone = user_phone, f_name = user_fname, l_name = user_lname, email = user_email, sex = user_sex, address = user_address, bdate = user_bdate)
+		u_profile.save()
+
+		# return render(request, 'users/login.html', {
+		# 	'message' : ' 2_Profile is fixed! '
+		# 	})
+
+		return render(request, 'users/user2.html', {
+			'user2_campaigns' : campaigns,				
+			'user2' : user2,
+			'message' : 'from user profile fix'
+			})
+
