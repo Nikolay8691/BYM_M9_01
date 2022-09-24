@@ -88,7 +88,13 @@ def create_profile2(request, user20_id):
 		user = User.objects.get(pk = user20_id)
 		user_nick = request.POST['nick']
 		user_phone = request.POST['phone']
-		profile = Profile(user = user, nick = user_nick, phone = user_phone)
+
+		user_sex = request.POST['sex']
+		user_address = request.POST['address']
+		user_bdate = request.POST['bdate']
+
+		profile = Profile(user = user, nick = user_nick, phone = user_phone, sex = user_sex, address = user_address, bdate = user_bdate)
+
 		profile.save()
 		return render(request, 'users/login.html', {
 			'message' : ' 2_Profile is created! '

@@ -7,8 +7,10 @@ from .models import Profile
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         fields = UserCreationForm.Meta.fields + ('email', 'first_name', 'last_name',)
+        
 
 class ProfileForm2(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('nick', 'phone')
+        fields = ('nick', 'phone', 'sex', 'address', 'bdate')
+
