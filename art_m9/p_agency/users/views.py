@@ -89,11 +89,15 @@ def create_profile2(request, user20_id):
 		user_nick = request.POST['nick']
 		user_phone = request.POST['phone']
 
+		user_fname = request.POST['f_name']
+		user_lname = request.POST['l_name']
+		user_email = request.POST['email']
+
 		user_sex = request.POST['sex']
 		user_address = request.POST['address']
 		user_bdate = request.POST['bdate']
 
-		profile = Profile(user = user, nick = user_nick, phone = user_phone, sex = user_sex, address = user_address, bdate = user_bdate)
+		profile = Profile(user = user, nick = user_nick, phone = user_phone, f_name = user_fname, l_name = user_lname, email = user_email, sex = user_sex, address = user_address, bdate = user_bdate)
 
 		profile.save()
 		return render(request, 'users/login.html', {

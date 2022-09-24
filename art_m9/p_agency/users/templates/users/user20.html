@@ -4,7 +4,7 @@
 	<h1>Welcome, {{user20.username}}</h1>
 
 	<h1> User2.0 (user_id : {{user20.id}}) : </h1>
-	<ul>
+<!-- 	<ul>
 
 		<li>first_name : {{user20.first_name}}</li>
 		<li>last_name : {{user20.last_name}}</li>
@@ -12,7 +12,7 @@
 
 
 	</ul>
-
+ -->
 	{% if message %}
 		<div> {{message}}</div>
 		<p></p>
@@ -24,6 +24,11 @@
 			
 		<input type="text" name="nick" placeholder="Nick_name">
 		<input type="text" name="phone" placeholder="Phone">
+
+		<input type="text" name="f_name" placeholder="first name">
+		<input type="text" name="l_name" placeholder="last name">
+		<input type="email" name="email" placeholder="c@ya.ru">
+
 
 		<input type="text" name="sex" placeholder="male or female">
 		<input type="text" name="address" placeholder="city, street, house, flat">
