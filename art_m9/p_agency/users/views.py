@@ -170,7 +170,7 @@ def c_password(request):
 		if form.is_valid():
 			form.save()
 			update_session_auth_hash(request, form.user)
-			messages.success(request, 'password was successfully updated!')
+			# messages.success(request, 'password was successfully updated!')
 			# return redirect('users:login')
 			return render(request, 'users/login.html', {
 				'message' : ' password is changed! '

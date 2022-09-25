@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 from .models import Campaign, House, Supervisor, Checkup, Apartment, CheckupResults
+from .printhtml import c_opens_printhtml, h_opens_printhtml, c_opinions_printhtml, h_opinions_printhtml
 
 from django.contrib.auth.models import User
 
@@ -178,6 +179,8 @@ def stat_index(request):
 		
 		c_opens = {}
 		c_opinions ={}
+		h_opens = {}
+		h_opinions ={}
 		for campaign in campaigns:
 
 			x = 0
@@ -202,8 +205,8 @@ def stat_index(request):
 				# message_2 = [[0, 0, 0] for j in range(sum_2)]
 				# i_2 = 0
 
-				h_opens = {}
-				h_opinions ={}
+				# h_opens = {}
+				# h_opinions ={}
 				for house in houses:
 					# c_houses += 1
 
@@ -318,6 +321,10 @@ def stat_index(request):
 
 	else:
 		message_0 = f'no campaigns detected'
+		c_opens = {}
+		c_opinions ={}
+		h_opens = {}
+		h_opinions ={}
 		print('no campaigns detected')
 
 	print ('\n message_0', message_0)
@@ -335,59 +342,59 @@ def stat_index(request):
 		'houses' : House.objects.all(),
 		'checkups' : Checkup.objects.all(),
 		'checkupresults' : CheckupResults.objects.all(),
-		'houses_open' : h_opens,
-		'houses_opinions' : h_opinions,
-		'campaigns_open' : c_opens,
-		'campaigns_opinions' : c_opinions,
+		# 'houses_open' : h_opens,
+		# 'houses_opinions' : h_opinions,
+		# 'campaigns_open' : c_opens,
+		# 'campaigns_opinions' : c_opinions,
 		'campaigns1_open' : c1_opens,
 		'houses1_open' : h1_opens,
 		'campaigns1_opinion' : c1_opinions,
 		'houses1_opinion' : h1_opinions,
 		})
 
-def c_opens_printhtml(c_opens):
-	i = 0
-	c1_opens = {}
-	for key, value in c_opens.items():
+# def c_opens_printhtml(c_opens):
+# 	i = 0
+# 	c1_opens = {}
+# 	for key, value in c_opens.items():
 
-		campaign = Campaign.objects.get(pk=key)
-		c1_opens[str(i)] = [campaign.id, campaign.title, value]
-		i += 1
+# 		campaign = Campaign.objects.get(pk=key)
+# 		c1_opens[str(i)] = [campaign.id, campaign.title, value]
+# 		i += 1
 
-	return c1_opens
+# 	return c1_opens
 
-def h_opens_printhtml(h_opens):
-	i = 0
-	h1_opens = {}
-	for value in h_opens.values():
+# def h_opens_printhtml(h_opens):
+# 	i = 0
+# 	h1_opens = {}
+# 	for value in h_opens.values():
 
-		data_id, data = value
-		campaign = Campaign.objects.get(pk = data_id[0])
-		house = House.objects.get(pk = data_id[1])
-		h1_opens[str(i)] = [campaign.id, campaign.title, house.id, house.city, data]
-		i += 1
+# 		data_id, data = value
+# 		campaign = Campaign.objects.get(pk = data_id[0])
+# 		house = House.objects.get(pk = data_id[1])
+# 		h1_opens[str(i)] = [campaign.id, campaign.title, house.id, house.city, data]
+# 		i += 1
 
-	return h1_opens
+# 	return h1_opens
 
-def c_opinions_printhtml(c_opinions):
-	i = 0
-	c1_opinions = {}
-	for key, value in c_opinions.items():
-		positive, neutral, negative = value
-		campaign = Campaign.objects.get(pk=key)
-		c1_opinions[str(i)] = [campaign.id, campaign.title, positive, neutral, negative]
-		i += 1
+# def c_opinions_printhtml(c_opinions):
+# 	i = 0
+# 	c1_opinions = {}
+# 	for key, value in c_opinions.items():
+# 		positive, neutral, negative = value
+# 		campaign = Campaign.objects.get(pk=key)
+# 		c1_opinions[str(i)] = [campaign.id, campaign.title, positive, neutral, negative]
+# 		i += 1
 
-	return c1_opinions
+# 	return c1_opinions
 
-def h_opinions_printhtml(h_opinions):
-	i = 0
-	h1_opinions = {}
-	for value in h_opinions.values():
-		data_id, positive, positive_sum, neutral, neutral_sum, negative, negative_sum = value
-		campaign = Campaign.objects.get(pk = data_id[0])
-		house = House.objects.get(pk = data_id[1])
-		h1_opinions[str(i)] = [campaign.id, campaign.title, house.id, house.city, positive, neutral, negative]
-		i += 1
+# def h_opinions_printhtml(h_opinions):
+# 	i = 0
+# 	h1_opinions = {}
+# 	for value in h_opinions.values():
+# 		data_id, positive, positive_sum, neutral, neutral_sum, negative, negative_sum = value
+# 		campaign = Campaign.objects.get(pk = data_id[0])
+# 		house = House.objects.get(pk = data_id[1])
+# 		h1_opinions[str(i)] = [campaign.id, campaign.title, house.id, house.city, positive, neutral, negative]
+# 		i += 1
 
-	return h1_opinions
+# 	return h1_opinions
