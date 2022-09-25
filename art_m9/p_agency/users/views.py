@@ -5,6 +5,10 @@ from django.urls import reverse
 
 from django.contrib.auth import authenticate, login, logout
 
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+from django.contrib import messages
+
 from .forms import CustomUserCreationForm, ProfileForm2
 
 from django.contrib.auth.models import User
@@ -111,7 +115,6 @@ def c_profile2(request, user2_id):
 	if request.method == "GET":
 		# user2 = User.objects.get(pk = user2_id)
 		return render(request, 'users/c_user20.html', {
-			# 'form': ProfileForm2,
 			'user2' : user2,
 			})
 
@@ -143,3 +146,39 @@ def c_profile2(request, user2_id):
 			'message' : 'from user profile fix'
 			})
 
+# def c_password(request, user2_id):
+# 	user = User.objects.get(pk = user2_id)
+# 	if request.method == 'POST':
+# 		form = PasswordChangeForm(user, request.POST)
+# 		if form.is_valid():
+#			form.save()
+# 			update_session_auth_hash(request, user)
+# 			messages.success(request, 'password was successfully updated!')
+# 			# return redirect('users:login')
+# 			return HttpResponseRedirect(reverse('users:user2', args = (user.id,)))
+
+# 	else:
+# 		form = PasswordChangeForm(user)
+
+# 	return render(request, 'users/c_password.html', {
+# 		'form' : form,
+# 		})
+
+def c_password(request):
+	if request.method == 'POST':
+		form = PasswordChangeForm(request.user, request.POST)
+		if form.is_valid():
+			form.save()
+			update_session_auth_hash(request, form.user)
+			messages.success(request, 'password was successfully updated!')
+			# return redirect('users:login')
+			return render(request, 'users/login.html', {
+				'message' : ' password is changed! '
+				})
+
+	else:
+		form = PasswordChangeForm(request.user)
+
+	return render(request, 'users/c_password.html', {
+		'form' : form,
+		})
