@@ -4,31 +4,34 @@
 	<h1>Welcome, {{user2.username}}</h1>
 
 	<h1> User2 (user_id : {{user2.id}}) : </h1>
-	<ul>
 
-		<li>first_name : {{user2.profile.f_name}}</li>
-		<li>last_name : {{user2.profile.l_name}}</li>
-		<li>email = {{user2.profile.email}}</li>
-		
- 		<li>nick = {{user2.profile.nick}}</li>
-		<li>phone = {{user2.profile.phone}}</li>
-
+	<ul class="list-group list-group-flush">
+		<li class="list-group-item">first_name : {{user2.profile.f_name}}</li>
+		<li class="list-group-item">last_name : {{user2.profile.l_name}}</li>
+		<li class="list-group-item">email = {{user2.profile.email}}</li>
+ 		<li class="list-group-item">nick = {{user2.profile.nick}}</li>
+		<li class="list-group-item">phone = {{user2.profile.phone}}</li>
 	</ul>
 
+	<nav class="navbar bg-primary">
+	  	<div class="container-fluid">
+			<a class="navbar-brand text-white" href = "{% url 'users:c_profile2' user2.id %}"> Fix user's profile </a>
+			<a class="navbar-brand text-white" href = "{% url 'users:c_password' %}"> Fix user's password </a>
+		</div>
+	</nav>
+
+
 	<h1>My Campaigns</h1>
-	<ul>
+	<ul class="list-group list-group-flush">
 		{% for campaign in user2_campaigns %}
-		<li>
-		 	
+		<li class="list-group-item">
+		 	<a href="{% url 'campaigns:campaign' campaign.id %}">
 				Campaign {{campaign.id}} : {{campaign.title}}
 			</a>
 		</li>	
-
 		{% empty %}
-			<li> no campaigns</li>
-
+			<li class="list-group-item"> no campaigns</li>
 		{% endfor %} 
-
 	</ul>	
 
 	{% if message %}
@@ -36,20 +39,19 @@
 		<p></p>
 	{% endif %}
 
-	<a href = "{% url 'campaigns:index' %}"> Full campaigns' list detailed info </a>
+	<nav class="navbar bg-primary">
+	  	<div class="container-fluid">
+			<a class="navbar-brand text-white" href = "{% url 'campaigns:index' %}"> Full campaigns' list detailed info </a>
+			<a class="navbar-brand text-white" href = "{% url 'campaigns:indexplususer2' user2.id %}"> Create new campaign </a>
+		</div>
+	</nav>
+
 	<p></p>
 
-		<a href = "{% url 'campaigns:indexplususer2' user2.id %}"> Create new campaign </a>
-	<p></p>
+ 	<nav class="navbar bg-dark bg-opacity-75">
+ 		<div class="container-fluid">
+			<a class="navbar-brand text-white" href = "{% url 'users:logout' %}"> Log out </a>
+		</div>
+	</nav>
 
-	<a href = "{% url 'users:c_profile2' user2.id %}"> Fix user's profile </a>
-	<p></p>
-
-	<a href = "{% url 'users:c_password' %}"> Fix user's password </a>
-	<p></p>
-
-
-	<a href = "{% url 'users:logout' %}"> Log out </a>
-	<p></p>
-	
 {% endblock %}

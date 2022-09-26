@@ -2,16 +2,30 @@
 
 {% block body %}
 
-	<form action="{% url 'users:login' %}" method="post">
+	<form class="form-floating" action="{% url 'users:login' %}" method="post">
 		{% csrf_token %}
-		<input type="text" name="username" placeholder="Username">
-		<input type="password" name="password" placeholder="Password">
-		<input type="submit" value="Login">
+		<div class="form-floating">
+			<input type="text" class="form-control" name="username" placeholder="Username">
+			<label for="floatingInputValue">username</label>
+		</div>
+		<div class="form-floating">
+			<input type="password" class="form-control" name="password" placeholder="Password">
+			<label for="floatingInputValue">password</label>
+		</div>
+		<p></p>
+ 		<div class="form-floating">
+    		<button type="submit" class="btn btn-primary">Submit</button>
+  		</div>
 	</form>
 
 	{% if message %}
-		<div> {{message}}</div>
-		<a href = "{% url 'users:index2' %}"> Back to users' list </a>
-		<p></p>
+		<div style="color: red; font-weight: bold;"> {{message}}</div>		
+		<nav class="navbar bg-dark bg-opacity-75">
+			<div class="container-fluid">
+				<a class="navbar-brand text-white" href = "{% url 'users:index2' %}"> Back to users' list </a>
+				<a class="navbar-brand text-white" href = "{% url 'main:index' %}"> Back to start page</a>
+			</div>
+		</nav>
+
 	{% endif %}
 {% endblock %}

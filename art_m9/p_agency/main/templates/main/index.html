@@ -1,40 +1,70 @@
 {% extends 'main/layout.html' %}
 
+{% block head %}
+	<style>
+		.title {
+			font-weight: bold;
+			font-size: 20px;
+		}
+
+	</style>
+{% endblock %}
+
 {% block body %}
-	<a href = "{% url 'campaigns:index2' %}"> 
-		<h2 style = 'color: red;'>Campaigns' list(no registration)</h2>
-	</a>	
-	
-	<p></p>
-
-	<a href = "{% url 'users:index2' %}">
-		<h2 style = 'color: red;'>Users' list(no registration)</h2>
-	</a>
-
-	<p></p>
-	<center>
-	<table>
+	<table class = 'table table-hover'>
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">theme is ...</th>
+				<th scope="col">get there ^</th>
+				<th scope="col">extra_info</th>
+			</tr>
+		</thead>
 		<tr>
+			<th scope="row">1</th>
+			<td class="title">Campaigns' list (...)</td>
 			<td>
-				<h2>User registration</h2>
-				<h4>( + Profile )</h4>
+				<a href = "{% url 'campaigns:index2' %}">See full campaigns' list</a>			
 			</td>
-			<td>
-				<p></p>
-				<a href = "{% url 'users:registerplus2' %}"> Create new user and profile</a>	
+			<td style = 'color: red;'>
+				<p>no registration</p>
+				<p>(plain list without any references available)</p>
 			</td>
 		</tr>
-
 		<tr>
-			<td>	
-				<h2>User login</h2>
+			<th scope="row">2</th>
+			<td class="title">Users' list (...)</td>
+			<td>
+				<a href = "{% url 'users:index2' %}">See full users' list</a>
 			</td>
+			<td style = 'color: red;'>				
+				<p>no registration</p>
+				<p>(plain list without any references available)</p>
+			</td>
+		</tr>
+		<tr>
+			<th>3</th>
+			<td class="title">User registration (+...)</td>
+			<td>
+				<a href = "{% url 'users:registerplus2' %}"> Create new</a>	
+			</td>
+			<td>
+				<p>+ Profile</p>
+				<p>(create new user and his/her profile)</p>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row">4</th>
+			<td class="title">User login</td>
 			<td>	
 				<a href = "{% url 'users:login' %}"> Enter </a>
+			</td>
+			<td>
+				<p>registered user</p>
+				<p>(this user is given maximum access to information)</p>
 			</td>	
 		</tr>
 	</table>
-	</center>
 	<p></p>
 
 {% endblock %}

@@ -2,21 +2,23 @@
 
 {% block body %}
 	<h1>Users</h1>
-	<ul>
+	
+	<ul class="list-group list-group-flush">
 		{% for user in users %}
-			<li> 
-			
-<!-- 			User2 (id : {{user.id}}) : {{user.first_name}} {{user.last_name}} {{user.email}}
- -->
-			User2 (id : {{user.id}}) : {{user.username}}
-			
-			
+			<li class="list-group-item"> 
+				User2 (id : {{user.id}}) : {{user.username}}
 			</li>
 		{% empty %}
-			<li> no users </li>
-
+			<li class="list-group-item"> no users </li>
 		{% endfor %} 
+	</ul>
 
-	</ul>	
-	<a href = "{% url 'main:index' %}"> Back to start page </a>		
+ 	<nav class="navbar bg-dark bg-opacity-75">
+ 		
+	  	<div class="container-fluid">
+			<a class="navbar-brand text-white" href = "{% url 'main:index' %}"> Back to start page </a>
+		</div>
+		
+	</nav>
+	
 {% endblock %}

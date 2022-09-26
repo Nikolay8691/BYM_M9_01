@@ -2,13 +2,21 @@
 
 {% block body %}
     <h2>Register plus Profile</h2>
-
+    {% load bootstrap %}
     <form method="post">
         {% csrf_token %}
-        {{form}}
-    
-        <input type="submit" value="Register user">
-    </form>
+        {{form|bootstrap}}
 
-    <a href="{% url 'users:index2' %}">Back to users' list</a>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Register user</button>
+        </div>
+<!--         <input type="submit" value="Register user">
+ -->    
+    </form>
+    <p></p>
+    <nav class="navbar bg-dark bg-opacity-75">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white" href="{% url 'users:index2' %}">Back to users' list</a>
+        </div>
+    </nav>
 {% endblock %}

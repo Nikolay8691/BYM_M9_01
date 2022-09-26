@@ -4,62 +4,63 @@
 	<h1>Welcome, {{user2.username}}</h1>
 
 	<h1> User2 (user_id : {{user2.id}}) : </h1>
-<!-- 	<ul>
 
-		<li>first_name : {{user20.first_name}}</li>
-		<li>last_name : {{user20.last_name}}</li>
-		<li>email = {{user20.email}}</li>
-
-
-	</ul>
- -->
 	{% if message %}
 		<div> {{message}}</div>
 		<p></p>
 	{% endif %}
 
 	<h2>Fix user_profile</h2>
-	<form action = "{% url 'users:c_profile2' user2.id %}" method = "post"> 
+	<form class="form-floating" action="{% url 'users:c_profile2' user2.id %}" method = "post"> 
 		{% csrf_token %}
 			
-		<div>
-			<label>nick</label>
-			<input type="text" name="nick" value={{user2.profile.nick}}>
+		<div class="form-floating">
+			<input type="text" class="form-control" name="nick" value={{user2.profile.nick}}>
+			<label for="floatingInputValue">nick</label>			
 		</div>
-		<div>
-			<label>phone</label>
-			<input type="text" name="phone" value={{user2.profile.phone}}>
+		<div class="form-floating">
+			<input type="text" class="form-control" name="phone" value={{user2.profile.phone}}>
+			<label for="floatingInputValue">phone</label>
 		</div>
-		<div>
-			<label>first name</label>
-			<input type="text" name="f_name" value={{user2.profile.f_name}}>
+		<div class="form-floating">
+			<input type="text" class="form-control" name="f_name" value={{user2.profile.f_name}}>
+			<label for="floatingInputValue">first name</label>
 		</div>
-		<div>
-			<label>last name</label>
-			<input type="text" name="l_name" value={{user2.profile.l_name}}>
+		<div class="form-floating">
+			<input type="text" class="form-control" name="l_name" value={{user2.profile.l_name}}>
+			<label for="floatingInputValue">last name</label>
 		</div>
-		<div>
-			<label>email</label>
-			<input type="email" name="email" value={{user2.profile.email}}>
+		<div class="form-floating">
+			<input type="email" class="form-control" name="email" value={{user2.profile.email}}>
+			<label for="floatingInputValue">email</label>
 		</div>
-		<div>
-			<label>sex</label>
-			<input type="text" name="sex" value={{user2.profile.sex}}>
+		<div class="form-floating">
+			<input type="text" class="form-control" name="sex" value={{user2.profile.sex}}>
+			<label for="floatingInputValue">sex</label>
 		</div>
-		<div>
-			<label>address</label>
-			<input type="text" name="address" value={{user2.profile.address}}>
+		<div class="form-floating">
+			<input type="text" class="form-control" name="address" value={{user2.profile.address}}>
+			<label for="floatingInputValue">address</label>
 		</div>
-		<div>
-			<label>birth_date</label>
-			<input type="date" name="bdate" required>
+		<div class="form-floating">
+			<input type="date" class="form-control" name="bdate" required>
+			<label for="floatingInputValue">birth_date</label>
 		</div>	
 
-		<input type="submit">
+ 		<div class="form-floating">
+    		<button type="submit" class="btn btn-primary">Submit</button>
+  		</div>
+
+<!-- 		<input type="submit"> -->
 		
 	</form>
 
 	<p></p>
-		<a href = "{% url 'users:user2' user2.id %}"> Back to user2's page </a>
+    <nav class="navbar bg-dark bg-opacity-75">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white" href="{% url 'users:user2' user2.id %}"> Back to user2's page </a>
+        </div>
+    </nav>
+
 	<p></p>
 {% endblock %}
