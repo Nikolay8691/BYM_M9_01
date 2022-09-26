@@ -1,9 +1,9 @@
 {% extends 'users/layout.html' %}
 
 {% block body %}
-	<h1>Welcome, {{user2.username}}</h1>
+	<h1>Welcome, {{user2.username}}!</h1>
 
-	<h1> User2 (user_id : {{user2.id}}) : </h1>
+	<h4> (user_id : {{user2.id}}) : </h4>
 
 	<ul class="list-group list-group-flush">
 		<li class="list-group-item">first_name : {{user2.profile.f_name}}</li>
@@ -28,6 +28,7 @@
 		 	<a href="{% url 'campaigns:campaign' campaign.id %}">
 				Campaign {{campaign.id}} : {{campaign.title}}
 			</a>
+ 			<a href="{% url 'users:c_delete' campaign.id %}" class="btn btn-danger" role="button" data-bs-toggle="button">Delete</a>
 		</li>	
 		{% empty %}
 			<li class="list-group-item"> no campaigns</li>

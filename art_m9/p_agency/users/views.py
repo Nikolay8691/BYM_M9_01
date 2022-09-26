@@ -182,3 +182,14 @@ def c_password(request):
 	return render(request, 'users/c_password.html', {
 		'form' : form,
 		})
+
+def c_delete(request, campaign_id):
+	campaign = Campaign.objects.get(pk = campaign_id)
+	campaign.delete()
+	user = request.user
+	campaigns = Campaign.objects.filter(creator = user)
+	return render(request, 'users/user2.html', {
+		'user2_campaigns' : campaigns,				
+		'user2' : user,
+		'message' : 'from campaign delete'
+		})
