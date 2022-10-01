@@ -200,6 +200,9 @@ def stat_index(request):
 			c_houses = 0
 			houses = campaign.c_objects.all()
 			checkups = campaign.departures.all()
+			# print('campaign :', campaign)
+			# print('houses :', houses)
+			# print('checkups :', checkups)
 
 			h_sum = len(houses)
 			message_1[i_1] = [campaign.id, h_sum]
@@ -228,8 +231,8 @@ def stat_index(request):
 					h_opens [b] = [a, y]
 					h_opinions [b] = [a, y_positive, 0, y_neutral, 0, y_negative, 0]
 					
-					checkups = checkups.filter(house = house)
-					ch_sum = len(checkups)
+					checkups_h = checkups.filter(house = house)
+					ch_sum = len(checkups_h)
 
 					message_2[i_2] = [campaign.id, house.id, ch_sum]
 					i_2 += 1
@@ -241,7 +244,7 @@ def stat_index(request):
 						# message_3 = [[0, 0, 0, 0] for k in range(sum_3)]
 						# i_3 = 0
 
-						for checkup in checkups:
+						for checkup in checkups_h:
 							# h_checkups += 1
 							ch_opens = 0
 
@@ -291,7 +294,7 @@ def stat_index(request):
 							c_houses -= 1
 
 						# h_opens += ch_opens/h_checkups
-						h_opens [b] = [a, y/h_checkups*100]
+						h_opens [b] = [a, round(y/h_checkups*100)]
 						h_opinions [b] = [
 							a, 
 							round(y_positive/h_checkups*100, 2), positive_sum,
