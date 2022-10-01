@@ -36,8 +36,16 @@
 	</ul>	
 
 	{% if message %}
-		<div> {{message}}</div>
-		<p></p>
+		{% if message == 'from user login' %}
+			<div style = 'color: green; font-weight: bold;'> {{message}}</div>
+			<p></p>
+		{% elif message == "from campaign delete" %}
+			<div style = 'color: red; font-weight: bold;'> {{message}}</div>
+			<p></p>
+		{% else %}
+			<div style = 'color: darkgrey; font-weight: bold;'> {{message}}</div>
+			<p></p>
+		{% endif %}
 	{% endif %}
 
 	<nav class="navbar bg-primary">

@@ -19,7 +19,14 @@
 	</form>
 
 	{% if message %}
-		<div style="color: red; font-weight: bold;"> {{message}}</div>		
+		{% if message == ' Logged out ' or message == ' invalid username and/or password ' %}
+			<div style="color: red; font-weight: bold;"> {{message}}</div>
+		{% elif message == ' To create new campaign : 1. log in 2. move to create new campaign^2 '%}
+			<div style="color: blueviolet; font-weight: bold;"> {{message}}</div>
+		{% else %}
+			<div style="color: seagreen; font-weight: bold;"> {{message}}</div>
+		{% endif %}
+
 		<nav class="navbar bg-dark bg-opacity-75">
 			<div class="container-fluid">
 				<a class="navbar-brand text-white" href = "{% url 'users:index2' %}"> Back to users' list </a>
