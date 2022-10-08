@@ -80,7 +80,8 @@ def add(request, user2_id):
 		return render(request, 'users/user2.html', {
 			'user2_campaigns' : campaigns,				
 			'user2' : user2,
-			'message' : 'from campaign create'
+			# 'message' : 'from campaign create'
+			'msg_2' : {'msg_type' : 'positive', 'msg_text' : 'from campaign create'},
 			})
 
 def book(request, campaign_id):

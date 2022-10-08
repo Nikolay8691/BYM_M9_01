@@ -1,16 +1,7 @@
 {% extends 'users/layout.html' %}
 
-{% block head %}
-	{% load static %}
-	<link rel="stylesheet" type="text/css" href="{% static 'msg_style.css' %}">
-
-<!--  	<style>
- 		.msg2 {
- 			font-weight: bold;
- 			color: yellow;
- 		}
- 	</style> -->
-{% endblock %}
+	{% block head %}
+	{% endblock %}
 
 {% block body %}
 	<h1>Welcome, {{user2.username}}!</h1>
@@ -47,18 +38,17 @@
 		{% endfor %} 
 	</ul>	
 
-	{% if msg_2 %}
-	<div class = 'msg2'>
-		{% if msg_2.msg_type == 'positive' %}
-			<p style = 'color: green;'>{{msg_2.msg_text}}</p>
-		{% elif msg_2.msg_type == 'negative' %}
-			<p style = 'color: red;'>{{msg_2.msg_text}}</p>
-		{% elif msg_2.msg_type == 'neutral' %}
-			<p style = 'color: darkgrey;'>{{msg_2.msg_text}}</p>
+	{% if message %}
+		{% if message == 'from user login' %}
+			<div style = 'color: green; font-weight: bold;'> {{message}}</div>
+			<p></p>
+		{% elif message == "from campaign delete" %}
+			<div style = 'color: red; font-weight: bold;'> {{message}}</div>
+			<p></p>
 		{% else %}
-			<p>{{msg_2.msg_text}}</p>
+			<div style = 'color: darkgrey; font-weight: bold;'> {{message}}</div>
+			<p></p>
 		{% endif %}
-	</div>
 	{% endif %}
 
 	<nav class="navbar bg-primary">

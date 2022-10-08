@@ -1,13 +1,34 @@
 {% extends 'users/layout.html' %}
 
+{% block head %}
+<!-- 	<link rel="stylesheet" type="text/css" href="if_color.css">
+ -->
+
+ 	<style>
+ 		.msg2 {
+ 			font-weight: bold;
+ 			color: yellow;
+ 		}
+ 	</style>
+{% endblock %}
+
 {% block body %}
 	<h1>Welcome, {{user20.username}}</h1>
 
 	<h1> User2.0 (user_id : {{user20.id}}) : </h1>
 
-	{% if message %}
-		<div> {{message}}</div>
-		<p></p>
+	{% if msg_2 %}
+		<div class = 'msg2'>
+		{% if msg_2.msg_type == 'positive' %}
+			<p style = 'color: green;'>{{msg_2.msg_text}}</p>
+		{% elif msg_2.msg_type == 'negative' %}
+			<p style = 'color: red;'>{{msg_2.msg_text}}</p>
+		{% elif msg_2.msg_type == 'neutral' %}
+			<p style = 'color: darkgrey;'>{{msg_2.msg_text}}</p>
+		{% else %}
+			<p>{{msg_2.msg_text}}</p>
+		{% endif %}
+	</div>
 	{% endif %}
 
 	<h2>Create user_profile</h2>

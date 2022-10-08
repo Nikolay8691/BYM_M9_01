@@ -29,7 +29,8 @@ def user2(request, user2_id):
 	return render(request, 'users/user2.html', {
 		'user2_campaigns' : campaigns,				
 		'user2' : user2,
-		'message' : 'from user login'
+		# 'message' : 'from user login',
+		'msg_2' : {'msg_type' : 'positive', 'msg_text' : 'from user login'},
 		})
 
 
@@ -37,7 +38,8 @@ def user20(request, user20_id):
 	user20 = User.objects.get(pk = user20_id)
 	return render(request, 'users/user20.html', {
 		'user20' : user20,
-		'message' : 'from user registration'
+		# 'message' : 'from user registration',
+		'msg_2' : {'msg_type' : 'positive', 'msg_text' : 'from user registration'},
 		})
 
 
@@ -52,7 +54,8 @@ def login_view(request):
 			return HttpResponseRedirect(reverse('users:user2', args = (user.id,)))
 		else:
 			return render(request, 'users/login.html', {
-				'message' : ' invalid username and/or password '
+				# 'message' : ' invalid username and/or password ',
+				'msg_2' : {'msg_type' : 'negative', 'msg_text' : 'invalid username and/or password'},
 				})
 
 	return render(request, 'users/login.html')
@@ -61,13 +64,15 @@ def login_view(request):
 def logout_view(request):
 	logout(request)
 	return render(request, 'users/login.html', {
-		'message' : ' Logged out '
+		# 'message' : ' Logged out ',
+		'msg_2' : {'msg_type' : 'negative', 'msg_text' : 'Logged out'},
 		})
 
 def logout_plus(request):
 	logout(request)
 	return render(request, 'users/login.html', {
-		'message' : ' To create new campaign : 1. log in 2. move to create new campaign^2 '
+		# 'message' : ' To create new campaign : 1. log in 2. move to create new campaign^2 ',
+		'msg_2' : {'msg_type' : 'other', 'msg_text' : 'To create new campaign : 1. log in 2. move to create new campaign^2'},
 		})
 
 
@@ -105,7 +110,8 @@ def create_profile2(request, user20_id):
 
 		profile.save()
 		return render(request, 'users/login.html', {
-			'message' : ' 2_Profile is created! '
+			# 'message' : ' 2_Profile is created! ',
+			'msg_2' : {'msg_type' : 'positive', 'msg_text' : '2_Profile is created!'},
 			})
 
 def c_profile2(request, user2_id):
@@ -143,7 +149,8 @@ def c_profile2(request, user2_id):
 		return render(request, 'users/user2.html', {
 			'user2_campaigns' : campaigns,				
 			'user2' : user2,
-			'message' : 'from user profile fix'
+			# 'message' : 'from user profile fix',
+			'msg_2' : {'msg_type' : 'neutral', 'msg_text' : 'from user profile fix'},
 			})
 
 # def c_password(request, user2_id):
@@ -173,7 +180,8 @@ def c_password(request):
 			# messages.success(request, 'password was successfully updated!')
 			# return redirect('users:login')
 			return render(request, 'users/login.html', {
-				'message' : ' password is changed! '
+				# 'message' : ' password is changed! ',
+				'msg_2' : {'msg_type' : 'neutral', 'msg_text' : 'password is changed!'},
 				})
 
 	else:
@@ -191,5 +199,6 @@ def c_delete(request, campaign_id):
 	return render(request, 'users/user2.html', {
 		'user2_campaigns' : campaigns,				
 		'user2' : user,
-		'message' : 'from campaign delete'
+		# 'message' : 'from campaign delete',
+		'msg_2' : {'msg_type' : 'negative', 'msg_text' : 'from campaign delete'},
 		})
